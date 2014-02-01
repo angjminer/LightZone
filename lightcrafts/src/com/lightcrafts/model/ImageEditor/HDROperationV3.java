@@ -50,7 +50,7 @@ public class HDROperationV3 extends BlendedOperation {
         setSliderConfig(HIGHLIGHTS, new SliderConfig(0, 1, highlights, .05, false, format));
 
         addSliderKey(DETAIL);
-        setSliderConfig(DETAIL, new SliderConfig(-10, 10, detail, .05, false, format));
+        setSliderConfig(DETAIL, new SliderConfig(-10, 10, detail, .05, false, format));//angelo for more lr like clarity
 
         addSliderKey(DEPTH);
         setSliderConfig(DEPTH, new SliderConfig(8, 64, depth, .05, false, format));
