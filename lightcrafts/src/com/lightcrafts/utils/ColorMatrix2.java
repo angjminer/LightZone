@@ -374,4 +374,36 @@ public class ColorMatrix2 {
 
         matrixmult(mmat, mat, mat);
     }
+    //angelo contrast
+/*
+ *	contrastmat -
+ *		make a contrast marix
+ */
+    public static void contrastmat(float mat[][], float contr, float bright) {
+        if (bright == 0.0) {
+            bright = 1.0f;
+                    }
+        if (contr == 0.0) {
+            contr = 1.0f;
+        }
+        float con = (contr * 0.01f);
+        float bri = bright / 100 +1;
+      
+        
+   
+        /*
+        float mmat[][] = new float[][] {
+            {(RLUM - 0.5f) * con + 0.5f, (RLUM - 0.5f) * con,       (RLUM - 0.5f) * con,       0},
+            {(GLUM - 0.5f) * con,       (GLUM - 0.5f) * con + 0.5f, (GLUM - 0.5f) * con,       0},
+            {(BLUM - 0.5f) * con,       (BLUM - 0.5f) * con,       (BLUM - 0.5f) * con + 0.5f, 0},
+            {0,                        0,                        0,                        1}
+        };*/        
+        float mmat[][] = new float[][] {
+            {(RLUM - 0.5f) * con + 1.0f, (RLUM - 0.5f) * con,       (RLUM - 0.5f) * con,       0},
+            {(GLUM - 0.5f) * con,       (GLUM - 0.5f) * con + 1.0f, (GLUM - 0.5f) * con,       0},
+            {(BLUM - 0.5f) * con,       (BLUM - 0.5f) * con,       (BLUM - 0.5f) * con + 1.0f, 0},
+            {0,                        0,                        0,                        1}
+        };        
+        matrixmult(mmat, mat, mat);
+    }      
 }
