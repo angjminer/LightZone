@@ -25,6 +25,8 @@ public class HueSaturationOperation extends BlendedOperation {
     static final String SATURATION = "Saturation";
     static final String VIBRANCE = "Vibrance";
     static final String LUMINOSITY = "Luminosity";
+    //angelo contrast
+    static final String CONTRAST = "Contrast";
 
     public HueSaturationOperation(Rendering rendering, OperationType type) {
         super(rendering, type);
@@ -39,11 +41,15 @@ public class HueSaturationOperation extends BlendedOperation {
             addSliderKey(LUMINOSITY);
         if (type == typeV2)
             addSliderKey(HUE);
+        //angelo contrast
+        addSliderKey(CONTRAST);
 
         DecimalFormat format = new DecimalFormat("0");
 
         setSliderConfig(HUE, new SliderConfig(-180, 180, hue, 1, false, format));
         setSliderConfig(SATURATION, new SliderConfig(-100, 100, saturation, 1, false, format));
+        //angelo contrast
+        setSliderConfig(CONTRAST, new SliderConfig(-127, 127, contr, 1, false, format));
         if (type != typeV1)
             setSliderConfig(VIBRANCE, new SliderConfig(-100, 100, vibrance, 1, false, format));
         if (type != typeV2)
@@ -62,6 +68,8 @@ public class HueSaturationOperation extends BlendedOperation {
     private float saturation = 0;
     private float vibrance = 0;
     private float intensity = 0;
+    //angelo contrast
+    private float contr = 0;
 
     public void setSliderValue(String key, double value) {
         value = roundValue(key, value);
@@ -74,6 +82,9 @@ public class HueSaturationOperation extends BlendedOperation {
             vibrance = (float) value;
         } else if (key == LUMINOSITY && intensity != value) {
             intensity = (float) value;
+        //angelo contrast    
+        } else if (key == CONTRAST && contr != value) {
+            contr = (float) value;
         } else
             return;
         
@@ -97,6 +108,11 @@ public class HueSaturationOperation extends BlendedOperation {
         if (intensity != 0.0) {
             float lit = intensity / 100 + 1;
             ColorMatrix2.cscalemat(matrix, lit, lit, lit);
+        }
+        //angelo contrast
+        if (contr != 0.0) {
+
+            ColorMatrix2.contrastmat(matrix, contr, intensity);
         }
 
         double transform[][] = new double[3][4];
